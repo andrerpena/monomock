@@ -10,13 +10,20 @@ var App = React.createClass({
         actions: React.PropTypes.object.isRequired
     },
 
+    handleIncrementClick: function() {
+      this.props.actions.increment(1);
+    },
+
     render: function () {
+
+        console.log(this.props);
+
         const counter = this.props.counter;
         const actions = this.props.actions;
         return (
             <div>
-                <div>This is the header</div>
-                <div>This is the body</div>
+                <div>Counter { counter.counter }</div>
+                <button onClick={this.handleIncrementClick}>increment</button>
             </div>
         );
     }
