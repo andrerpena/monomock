@@ -1,6 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var cookieSession = require('cookie-session');
 var colors = require('colors');
 
 var expressReactViews = require('express-react-views');
