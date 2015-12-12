@@ -1,6 +1,4 @@
 import React from 'react';
-import _ from 'underscore';
-import async from 'async';
 
 import Header from '../components/Header';
 
