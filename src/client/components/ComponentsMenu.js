@@ -10,17 +10,27 @@ var ComponentsMenu = React.createClass({
     render: function() {
 
         var menuData = {
-            contacts: {
-                display: "Contacts",
-                icon: "user",
+            buttons: {
+                display: "Buttons",
+                icon: "check-square",
                 nodes: {
-                    newContact: {
-                        display: "New contact",
-                        icon: "user-plus"
+                    button: {
+                        display: "Button",
                     },
-                    search: {
-                        display: "Search contacts",
-                        icon: "search"
+                    buttonBar: {
+                        display: "Button Bar",
+                    },
+                    checkbox: {
+                        display: "Checkbox",
+                    },
+                    checkboxGroup: {
+                        display: "Checkbox Group",
+                    },
+                    colorPicker: {
+                        display: "Color Picker",
+                    },
+                    comboBox: {
+                        display: "ComboBox"
                     }
                 }
             }
