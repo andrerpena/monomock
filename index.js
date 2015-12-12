@@ -1,20 +1,21 @@
-import 'babel-core/polyfill'
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import App from './src/containers/App';
-import configureStore from './src/store/configureStore'
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+var express = require('express');
+var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
+var colors = require('colors');
 
-const store = configureStore();
+var expressReactViews = require('express-react-views');
+var app  = express();
 
-render(
-    <div>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-        <DebugPanel top right bottom>
-            <DevTools store={store} monitor={LogMonitor} />
-        </DebugPanel>
-    </div>, document.getElementById('root')
-);
+app.set('views', './src/server/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
+
+app.use(express.static('./dist'));
+
+// routes
+var def = require('./src/server/routes/app');
+app.get('*', def);
+
+app.listen(3000, function() {
+    console.log(colors.green(`Monomock is running on port 3000. NODE_ENV: ${process.env.NODE_ENV}`));
+});
