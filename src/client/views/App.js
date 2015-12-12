@@ -1,7 +1,8 @@
 import React from 'react';
-
 import _ from 'underscore';
 import async from 'async';
+
+import Header from '../components/Header';
 
 var Router = require('react-router')
     , RouteHandler = Router.RouteHandler
@@ -13,7 +14,7 @@ var App = React.createClass({
 
         return (
             <div>
-                This is my app 2
+                <Header/>
             </div>
         );
     }
