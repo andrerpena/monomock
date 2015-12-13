@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import ComponentsMenu from '../components/ComponentsMenu';
-import Surface from '../components/Surface';
+import AppBody from '../components/AppBody';
 
 var Router = require('react-router')
     , RouteHandler = Router.RouteHandler
@@ -14,16 +13,7 @@ var App = React.createClass({
         return (
             <div className="container-fluid">
                 <Header/>
-                <div className="page-wrap">
-                    <div className="row row-no-padding">
-                        <div className="col-md-2">
-                            <ComponentsMenu />
-                        </div>
-                        <div className="col-md-10">
-                            <Surface/>
-                        </div>
-                    </div>
-                </div>
+                <AppBody />
             </div>
         );
     }

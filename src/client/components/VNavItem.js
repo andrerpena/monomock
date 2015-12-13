@@ -2,11 +2,29 @@ var React = require("react");
 import Icon from './Icon';
 import menuHelper from '../lib/menuHelper';
 
+import { ItemTypes } from '../Constants';
+import { DragSource } from 'react-dnd';
+
+const componentSource = {
+    beginDrag() {
+        return {};
+    }
+};
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
+
 var VNavItem = React.createClass({
 
     PropTypes: {
         node: React.PropTypes.object.isRequired,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        connectDragSource: React.PropTypes.func.isRequired,
+        isDragging: React.PropTypes.bool.isRequired
     },
 
     getInitialState: function () {
@@ -30,6 +48,8 @@ var VNavItem = React.createClass({
      */
     render: function () {
 
+        const { connectDragSource, isDragging } = this.props;
+
         let childrenWrapper = null;
         if (this.props.node.nodes && this.state.collapsed === false) {
             childrenWrapper = <div className="vnav-children-wrapper">
@@ -42,15 +62,15 @@ var VNavItem = React.createClass({
              <Icon icon={this.state.collapsed ? "plus" : "minus"}/>
         </span> : null;
 
-        return <div className="vnav-item-wrapper">
+        return connectDragSource(<div className="vnav-item-wrapper">
             <div className="vnav-item" onClick={this.handleOnClick}>
                 {this.props.node.icon ? <Icon icon={this.props.node.icon}/> : null }
                 <span className={vNavIconTextClass}>{this.props.node.display}</span>
                 {plusWrapper}
             </div>
             {childrenWrapper}
-        </div>
+        </div>);
     }
 });
 
-export default VNavItem;
+export default DragSource(ItemTypes.COMPONENT, componentSource, collect)(VNavItem);
