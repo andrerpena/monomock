@@ -1,12 +1,28 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import { ItemTypes } from '../Constants';
 import { DropTarget } from 'react-dnd';
 
+
 const componentTarget = {
-    drop: function (props, monitor) {
-        console.log(arguments);
-        //moveKnight(props.x, props.y);
-        console.log('drop!');
+    drop: function (props, monitor, component) {
+        console.log('drop');
+
+        var clientOffset = monitor.getClientOffset();
+        let offsetX = clientOffset.x;
+        let offsetY = clientOffset.y;
+
+        var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
+        let left = rect.left;
+        let top = rect.top;
+
+        let delta = {
+            x : offsetX - left,
+            y: offsetY - top
+        };
+
+        console.log(delta);
+
     }
 };
 

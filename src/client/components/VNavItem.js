@@ -6,8 +6,10 @@ import { ItemTypes } from '../Constants';
 import { DragSource } from 'react-dnd';
 
 const componentSource = {
-    beginDrag() {
-        return {};
+    beginDrag(props) {
+        return {
+            node: props.node
+        };
     }
 };
 
