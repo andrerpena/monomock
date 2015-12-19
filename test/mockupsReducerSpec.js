@@ -1,7 +1,7 @@
 import mockupsReducer from '../src/client/reducers/mockupsReducer';
 import deepFreeze from 'deep-freeze';
 import chai from 'chai';
-import { ADD_COMPONENT, MOVE_COMPONENT } from '../src/client/actions/monomockActions';
+import { ADD_COMPONENT, MOVE_COMPONENT } from '../src/client/actions/mockupActions';
 
 var assert = chai.assert;
 

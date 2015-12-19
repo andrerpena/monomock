@@ -3,14 +3,18 @@ import ReactDom from 'react-dom';
 import App from './client/views/App';
 import configureStore from './client/store/configureStore';
 import { Provider } from 'react-redux';
+import DevTools from './client/DevTools';
 
 // styles
 import styles from './client/less/styles.less';
 
 const store = configureStore();
 
-ReactDom.render ((
+ReactDom.render((
     <Provider store={store}>
-        <App />
+        <div>
+            <App />
+            <DevTools />
+        </div>
     </Provider>
-),  document.getElementById('#app_container'));
+), document.getElementById('#app_container'));

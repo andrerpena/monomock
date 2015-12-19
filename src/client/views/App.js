@@ -1,15 +1,24 @@
 import React from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import Header from '../components/Header';
 import AppBody from '../components/AppBody';
+import * as MockupActions from '../actions/mockupActions';
 
-var Router = require('react-router')
-    , RouteHandler = Router.RouteHandler
-    , Route = Router.Route;
+function mapStateToProps(state) {
+    return {
+        mockups: state.mockups
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(MockupActions, dispatch)
+}
+
 
 var App = React.createClass({
 
     render: function () {
-
         return (
             <div className="container-fluid">
                 <Header/>
@@ -19,4 +28,4 @@ var App = React.createClass({
     }
 });
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

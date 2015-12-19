@@ -1,4 +1,4 @@
-import { ADD_COMPONENT, MOVE_COMPONENT } from '../actions/monomockActions';
+import { ADD_COMPONENT, MOVE_COMPONENT } from '../actions/mockupActions';
 import _ from 'underscore';
 
 // default mockups
