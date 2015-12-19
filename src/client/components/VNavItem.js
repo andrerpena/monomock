@@ -7,9 +7,7 @@ import { DragSource } from 'react-dnd';
 
 const componentSource = {
     beginDrag(props) {
-        return {
-            node: props.node
-        };
+        return props.node;
     }
 };
 

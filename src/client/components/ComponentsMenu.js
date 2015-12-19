@@ -11,26 +11,12 @@ var ComponentsMenu = React.createClass({
 
         var menuData = {
             buttons: {
-                display: "Buttons",
-                icon: "check-square",
+                display: 'Buttons',
+                icon: 'check-square',
                 nodes: {
                     button: {
-                        display: "Button",
-                    },
-                    buttonBar: {
-                        display: "Button Bar",
-                    },
-                    checkbox: {
-                        display: "Checkbox",
-                    },
-                    checkboxGroup: {
-                        display: "Checkbox Group",
-                    },
-                    colorPicker: {
-                        display: "Color Picker",
-                    },
-                    comboBox: {
-                        display: "ComboBox"
+                        type: 'Button',
+                        display: 'Button'
                     }
                 }
             }

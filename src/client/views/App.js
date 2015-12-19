@@ -18,11 +18,18 @@ function mapDispatchToProps(dispatch) {
 
 var App = React.createClass({
 
+    propTypes: {
+        mockups: React.PropTypes.array.isRequired
+    },
+
     render: function () {
         return (
             <div className="container-fluid">
                 <Header/>
-                <AppBody />
+                <AppBody
+                    actions={{addComponent: this.props.addComponent, moveComponent: this.props.moveComponent}}
+                    mockups={this.props.mockups}
+                />
             </div>
         );
     }
