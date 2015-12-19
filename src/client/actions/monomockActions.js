@@ -1,20 +1,20 @@
 export const ADD_COMPONENT = 'ADD_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
 
-export function addComponent(mockupId, componentId, position) {
+export function addComponent(mockupName, componentType, position) {
     return {
         type: ADD_COMPONENT,
-        mockupId: mockupId,
-        componentId: componentId,
-        position: position
+        mockupName: mockupName,
+        componentType: componentType,
+        componentPosition: position
     };
 }
 
-export function moveComponent(mockupId, componentId, position) {
+export function moveComponent(mockupName, componentType, position) {
     return {
         type: MOVE_COMPONENT,
-        mockupId: mockupId,
-        componentId: componentId,
-        position: position
+        mockupName: mockupName,
+        componentType: componentType,
+        componentPosition: position
     };
 }

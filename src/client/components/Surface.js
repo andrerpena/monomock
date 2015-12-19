@@ -3,7 +3,6 @@ import ReactDom from 'react-dom';
 import { ItemTypes } from '../Constants';
 import { DropTarget } from 'react-dnd';
 
-
 const componentTarget = {
     drop: function (props, monitor, component) {
         console.log('drop');
