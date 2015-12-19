@@ -14,6 +14,7 @@ const componentSource = {
 function collect(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
         isDragging: monitor.isDragging()
     }
 }
@@ -48,7 +49,7 @@ var VNavItem = React.createClass({
      */
     render: function () {
 
-        const { connectDragSource, isDragging } = this.props;
+        const { connectDragSource, isDragging, connectDragPreview } = this.props;
 
         let childrenWrapper = null;
         if (this.props.node.nodes && this.state.collapsed === false) {
@@ -62,14 +63,16 @@ var VNavItem = React.createClass({
              <Icon icon={this.state.collapsed ? "plus" : "minus"}/>
         </span> : null;
 
-        return connectDragSource(<div className="vnav-item-wrapper">
+        let result = <div className="vnav-item-wrapper">
             <div className="vnav-item" onClick={this.handleOnClick}>
                 {this.props.node.icon ? <Icon icon={this.props.node.icon}/> : null }
                 <span className={vNavIconTextClass}>{this.props.node.display}</span>
                 {plusWrapper}
             </div>
             {childrenWrapper}
-        </div>);
+        </div>;
+
+        return this.props.node.nodes ? result : connectDragSource(result);
     }
 });
 
