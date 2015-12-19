@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import { ItemTypes } from '../Constants';
 import { DropTarget } from 'react-dnd';
 import { ADD_COMPONENT } from '../actions/mockupActions';
+import ComponentContainer from './ComponentContainer';
 
 const componentTarget = {
     drop: function (props, monitor, component) {
@@ -50,6 +51,9 @@ var Surface = React.createClass({
         const { connectDropTarget, isOver } = this.props;
         return connectDropTarget(
             <div className="surface">
+                { this.props.mockup.components.map((c, i) => {
+                    return <ComponentContainer key={`component-${i}`} position={c.position} type={c.type} props={c.props} />
+                })}
             </div>
         );
     }
