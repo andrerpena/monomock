@@ -1,12 +1,38 @@
 var React = require("react");
+import ReactDom from 'react-dom';
 import Icon from './Icon';
 import menuHelper from '../lib/menuHelper';
 
 import { ItemTypes } from '../Constants';
 import { DragSource } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 
 const componentSource = {
-    beginDrag(props) {
+    beginDrag(props, monitor, component) {
+
+        var clientOffset = monitor.getClientOffset();
+        //let offsetX = clientOffset.x;
+        //let offsetY = clientOffset.y;
+        //
+        //var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
+        //let left = rect.left;
+        //let top = rect.top;
+        //
+        //let mockupName = props.mockup.name;
+        //let position = {
+        //    x : offsetX - left,
+        //    y: offsetY - top
+        //};
+
+        //console.log(Object.getOwnPropertyNames(monitor.internalMonitor).filter(function (p) {
+        //    return typeof monitor.internalMonitor[p] === 'function';
+        //}));
+
+        //var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
+        //console.log(rect);
+
+        console.log(monitor);
+
         return props.node;
     }
 };
@@ -43,13 +69,23 @@ var VNavItem = React.createClass({
         }
     },
 
+    componentDidMount() {
+        // Use empty image as a drag preview so browsers don't draw it
+        // and we can draw whatever we want on the custom drag layer instead.
+        this.props.connectDragPreview(getEmptyImage(), {
+            // IE fallback: specify that we'd rather screenshot the node
+            // when it already knows it's being dragged so we can hide it with CSS.
+            captureDraggingState: true
+        });
+    },
+
     /**
      * ReactJS rendering function.
      * @returns {XML}
      */
     render: function () {
 
-        const { connectDragSource, isDragging, connectDragPreview } = this.props;
+        const { connectDragSource, isDragging } = this.props;
 
         let childrenWrapper = null;
         if (this.props.node.nodes && this.state.collapsed === false) {

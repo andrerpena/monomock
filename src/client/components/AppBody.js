@@ -3,6 +3,7 @@ import ComponentsMenu from '../components/ComponentsMenu';
 import Surface from '../components/Surface';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import CustomDragLayer from './CustomDragLayer';
 
 var AppBody = React.createClass({
 
@@ -24,6 +25,7 @@ var AppBody = React.createClass({
                         })
                     }
                 </div>
+                <CustomDragLayer />
             </div>
         </div>
     }
