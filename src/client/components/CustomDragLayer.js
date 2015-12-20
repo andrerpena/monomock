@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ItemTypes } from '../Constants.js';
 import { DragLayer } from 'react-dnd';
+import componentRegistry from './mockup/componentRegistry';
 
 const layerStyles = {
     position: 'fixed',
@@ -27,8 +28,11 @@ var CustomDragLayer = React.createClass({
     renderItem(type, item) {
         switch (type) {
             case ItemTypes.COMPONENT:
+                if (!item.type) throw Error('\'item.type\' should be truthy');
+                if (!componentRegistry[item.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
+                let componentType = componentRegistry[item.type].component;
                 return (
-                    <div style={{ width: 100, height: 100, backgroundColor: 'red', opacity: 0.5 }} ></div>
+                    React.createElement(componentType)
                 );
         }
     },

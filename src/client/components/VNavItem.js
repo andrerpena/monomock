@@ -9,30 +9,6 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 
 const componentSource = {
     beginDrag(props, monitor, component) {
-
-        var clientOffset = monitor.getClientOffset();
-        //let offsetX = clientOffset.x;
-        //let offsetY = clientOffset.y;
-        //
-        //var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
-        //let left = rect.left;
-        //let top = rect.top;
-        //
-        //let mockupName = props.mockup.name;
-        //let position = {
-        //    x : offsetX - left,
-        //    y: offsetY - top
-        //};
-
-        //console.log(Object.getOwnPropertyNames(monitor.internalMonitor).filter(function (p) {
-        //    return typeof monitor.internalMonitor[p] === 'function';
-        //}));
-
-        //var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
-        //console.log(rect);
-
-        console.log(monitor);
-
         return props.node;
     }
 };

@@ -15,8 +15,18 @@ var ComponentsMenu = React.createClass({
                 icon: 'check-square',
                 nodes: {
                     button: {
-                        type: 'Button',
+                        type: 'button',
                         display: 'Button'
+                    }
+                }
+            },
+            forms: {
+                display: 'Forms',
+                icon: 'check-square',
+                nodes: {
+                    textbox: {
+                        type: 'textbox',
+                        display: 'Text input'
                     }
                 }
             }
