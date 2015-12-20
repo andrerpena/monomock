@@ -12,22 +12,6 @@ const layerStyles = {
     height: '100%'
 };
 
-function getItemStyles(props) {
-    const { currentOffset } = props;
-    if (!currentOffset) {
-        return {
-            display: 'none'
-        };
-    }
-
-    const { x, y } = currentOffset;
-    const transform = `translate(${x}px, ${y}px)`;
-    return {
-        transform: transform,
-        WebkitTransform: transform
-    };
-}
-
 var CustomDragLayer = React.createClass({
 
     propTypes: {
@@ -44,7 +28,7 @@ var CustomDragLayer = React.createClass({
         switch (type) {
             case ItemTypes.COMPONENT:
                 return (
-                    <div title={item.title} > Fuck it I'm a drag layer </div>
+                    <div style={{ width: 100, height: 100, backgroundColor: 'red', opacity: 0.5 }} ></div>
                 );
         }
     },
@@ -54,6 +38,24 @@ var CustomDragLayer = React.createClass({
 
         if (!isDragging) {
             return null;
+        }
+
+        function getItemStyles(props) {
+            const { currentOffset, initialOffset, sourceOffset } = props;
+            if (!currentOffset) {
+                return {
+                    display: 'none'
+                };
+            }
+
+            const x = currentOffset.x + initialOffset.x - sourceOffset.x;
+            const y = currentOffset.y + initialOffset.y - sourceOffset.y;
+
+            const transform = `translate(${x}px, ${y}px)`;
+            return {
+                transform: transform,
+                WebkitTransform: transform
+            };
         }
 
         return (
@@ -72,6 +74,8 @@ function collect(monitor) {
         item: monitor.getItem(),
         itemType: monitor.getItemType(),
         currentOffset: monitor.getSourceClientOffset(),
+        initialOffset: monitor.getInitialClientOffset(),
+        sourceOffset: monitor.getInitialSourceClientOffset(),
         isDragging: monitor.isDragging()
     };
 }
