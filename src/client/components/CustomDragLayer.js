@@ -58,7 +58,8 @@ var CustomDragLayer = React.createClass({
             const transform = `translate(${x}px, ${y}px)`;
             return {
                 transform: transform,
-                WebkitTransform: transform
+                WebkitTransform: transform,
+                width: 100
             };
         }
 
