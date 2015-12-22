@@ -1,9 +1,10 @@
 @vnav-background-color:           @gray-lighter;
 @vnav-item-background-color:      white;
 @vnav-color:                      @gray;
-@vnav-border-color:               #444;
+@vnav-border-color:               @table-border-color;
 
 .vnav {
+  background-color: @vnav-background-color;
   border-width: 1px;
   border-style: solid;
   border-color: @vnav-border-color;
@@ -18,6 +19,7 @@
 }
 
 .search-clearer {
+  background-color: @alert-warning-bg;
   border-color: @alert-warning-border;
   border-width: 1px;
   border-style: solid;
@@ -45,6 +47,7 @@
 }
 
 .vnav-item {
+  background-color: @vnav-item-background-color;
   padding: @padding-base-vertical @padding-large-horizontal;
   border-width: 1px 0 0 1px;
   border-style: solid;
@@ -58,7 +61,6 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color:  #4B4B4B;
 }
 
 // first vnav-items hierarchically

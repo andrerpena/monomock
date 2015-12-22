@@ -1,0 +1,28 @@
+//general
+
+@import url(https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700);
+
+// inputs
+//@input-border-focus: green;
+@defaultFont:                'Cabin Sketch', cursive;
+@font-family-sans-serif:  @defaultFont;
+
+// buttons
+.light-hatching {
+  background-image: url('./assets/bg-button-default.png');
+  background-repeat: repeat;
+  background-color: lighten(#f9f9f9, 2%);
+}
+
+.btn-default {
+  .light-hatching;
+}
+
+
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
