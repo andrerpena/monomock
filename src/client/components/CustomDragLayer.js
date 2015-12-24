@@ -41,7 +41,7 @@ var CustomDragLayer = React.createClass({
                 if (!item.props) throw Error('\'item.props\' should be truthy');
                 componentType = componentRegistry[item.type].component;
                 return (
-                    <div>fuck it</div>
+                    React.createElement(componentType, item.props)
                 );
         }
     },

@@ -48,10 +48,6 @@ var ComponentContainer = React.createClass({
         let componentType = componentRegistry[this.props.type].component;
         const { connectDragSource, isDragging } = this.props;
 
-        if(isDragging) {
-            return null;
-        }
-
         return connectDragSource(<div style={style}>
             <div ref="container" className="component-container" onClick={this.handleClick}>
                 <div className="component-container-content">
