@@ -11,7 +11,8 @@ const componentSource = {
         return {
             id: props.id,
             type: props.type,
-            props: props.props || {}
+            props: props.props || {},
+            innerOffset: component.mouseDownInnerOffset
         }
     }
 };
@@ -38,18 +39,21 @@ var ComponentContainer = React.createClass({
     },
 
     render: function () {
-        let style = {
-            position: 'absolute',
-            left: this.props.position.x,
-            top: this.props.position.y
-        };
 
         if (!componentRegistry[this.props.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
         let componentType = componentRegistry[this.props.type].component;
         const { connectDragSource, isDragging } = this.props;
 
+        let style = {
+            position: 'absolute',
+            left: this.props.position.x,
+            top: this.props.position.y,
+            opacity: isDragging ? 0 : 1
+        };
+
+
         return connectDragSource(<div style={style}>
-            <div ref="container" className="component-container" onClick={this.handleClick}>
+            <div ref="container" className="component-container" onClick={this.handleClick} onMouseDown={this.handleMouseDown}>
                 <div className="component-container-content">
                     { React.createElement(componentType)}
                 </div>
@@ -61,6 +65,15 @@ var ComponentContainer = React.createClass({
     handleClick: function (e) {
         e.stopPropagation();
         this.props.onSelect(this.props.id);
+    },
+
+    handleMouseDown: function(e) {
+
+        let clientRect = ReactDom.findDOMNode(this).getBoundingClientRect();
+        this.mouseDownInnerOffset = {
+            x: e.pageX - clientRect.left,
+            y: e.pageY - clientRect.top
+        };
     },
 
     renderHandles: function () {

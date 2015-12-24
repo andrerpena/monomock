@@ -8,6 +8,8 @@ import ComponentContainer from './ComponentContainer';
 const componentTarget = {
     drop: function (props, monitor, component) {
 
+        // console.log(monitor.getInitialSourceClientOffset())
+
         switch (monitor.getItemType()) {
             case ItemTypes.ADD_COMPONENT:
                 // trigger the add component action

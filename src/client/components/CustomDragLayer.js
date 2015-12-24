@@ -25,7 +25,25 @@ var CustomDragLayer = React.createClass({
         isDragging: PropTypes.bool.isRequired
     },
 
-    renderItem(type, item) {
+    renderItem(type, item, props) {
+        function getItemStyle(props, innerOffset) {
+            innerOffset = innerOffset || { x: 0, y: 0 };
+            const { currentOffset, initialOffset, sourceOffset } = props;
+            if (!currentOffset) {
+                return {
+                    display: 'none'
+                };
+            }
+            const x = currentOffset.x + initialOffset.x - sourceOffset.x - innerOffset.x;
+            const y = currentOffset.y + initialOffset.y - sourceOffset.y - innerOffset.y;
+            const transform = `translate(${x}px, ${y}px)`;
+            return {
+                transform: transform,
+                WebkitTransform: transform,
+                width: 100
+            };
+        }
+
         let componentType;
         switch (type) {
             case ItemTypes.ADD_COMPONENT:
@@ -33,7 +51,9 @@ var CustomDragLayer = React.createClass({
                 if (!componentRegistry[item.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
                 componentType = componentRegistry[item.type].component;
                 return (
-                    React.createElement(componentType)
+                    <div style={getItemStyle(this.props)}>
+                        { React.createElement(componentType) }
+                    </div>
                 );
             case ItemTypes.EXISTING_COMPONENT:
                 if (!item.type) throw Error('\'item.type\' should be truthy');
@@ -41,7 +61,9 @@ var CustomDragLayer = React.createClass({
                 if (!item.props) throw Error('\'item.props\' should be truthy');
                 componentType = componentRegistry[item.type].component;
                 return (
-                    React.createElement(componentType, item.props)
+                    <div style={getItemStyle(this.props, item.innerOffset)}>
+                        { React.createElement(componentType, item.props) }
+                    </div>
                 );
         }
     },
@@ -53,30 +75,10 @@ var CustomDragLayer = React.createClass({
             return null;
         }
 
-        function getItemStyles(props) {
-            const { currentOffset, initialOffset, sourceOffset } = props;
-            if (!currentOffset) {
-                return {
-                    display: 'none'
-                };
-            }
-
-            const x = currentOffset.x + initialOffset.x - sourceOffset.x;
-            const y = currentOffset.y + initialOffset.y - sourceOffset.y;
-
-            const transform = `translate(${x}px, ${y}px)`;
-            return {
-                transform: transform,
-                WebkitTransform: transform,
-                width: 100
-            };
-        }
 
         return (
             <div style={layerStyles}>
-                <div style={getItemStyles(this.props)}>
-                    {this.renderItem(itemType, item)}
-                </div>
+                {this.renderItem(itemType, item, this.props)}
             </div>
         );
     }
