@@ -26,13 +26,22 @@ var CustomDragLayer = React.createClass({
     },
 
     renderItem(type, item) {
+        let componentType;
         switch (type) {
             case ItemTypes.ADD_COMPONENT:
                 if (!item.type) throw Error('\'item.type\' should be truthy');
                 if (!componentRegistry[item.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
-                let componentType = componentRegistry[item.type].component;
+                componentType = componentRegistry[item.type].component;
                 return (
                     React.createElement(componentType)
+                );
+            case ItemTypes.EXISTING_COMPONENT:
+                if (!item.type) throw Error('\'item.type\' should be truthy');
+                if (!item.id) throw Error('\'item.id\' should be truthy');
+                if (!item.props) throw Error('\'item.props\' should be truthy');
+                componentType = componentRegistry[item.type].component;
+                return (
+                    <div>fuck it</div>
                 );
         }
     },

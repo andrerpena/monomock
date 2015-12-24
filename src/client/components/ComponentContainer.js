@@ -11,7 +11,7 @@ const componentSource = {
         return {
             id: props.id,
             type: props.type,
-            props: props.props
+            props: props.props || {}
         }
     }
 };
@@ -52,12 +52,12 @@ var ComponentContainer = React.createClass({
             return null;
         }
 
-        return connectDragSource(<div>
-            <div style={style} ref="container" className="component-container" onClick={this.handleClick}>
+        return connectDragSource(<div style={style}>
+            <div ref="container" className="component-container" onClick={this.handleClick}>
                 <div className="component-container-content">
                     { React.createElement(componentType)}
                 </div>
-                { this.props.selected ? this.renderHandles() : null }
+                { !isDragging && this.props.selected ? this.renderHandles() : null }
             </div>
         </div>);
     },
