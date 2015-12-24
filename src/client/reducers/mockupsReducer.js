@@ -1,4 +1,5 @@
 import { ADD_COMPONENT, MOVE_COMPONENT } from '../actions/mockupActions';
+import generateGuid from '../lib/generateGuid';
 import _ from 'underscore';
 
 // default mockups
@@ -22,6 +23,7 @@ export default function mockupsReducer(state = defaultState, action) {
             mockups[mockupIndex] = Object.assign({}, state[mockupIndex]);
             mockups[mockupIndex].components = state[mockupIndex].components.slice(0);
             mockups[mockupIndex].components.push({
+                id: generateGuid(),
                 type: action.componentType,
                 position: {x: action.componentPosition.x, y: action.componentPosition.y}
             });

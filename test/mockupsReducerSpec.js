@@ -17,7 +17,8 @@ describe('mockupsReducer', function () {
                 name: 'default',
                 components: [
                     {
-                        id: 'textbox',
+                        id: '123',
+                        type: 'texbox',
                         position: {x: 0, y: 0}
                     }
                 ]
@@ -41,9 +42,16 @@ describe('mockupsReducer', function () {
         assert.strictEqual(mockups.length, 1);
         assert.strictEqual(mockups[0].name, 'default');
         assert.strictEqual(mockups[0].components.length, 3);
-        assert.strictEqual(mockups[0].components[1].position.x, 10);
+
+        assert.ok(mockups[0].components[1].id);
+        assert.strictEqual(mockups[0].components[1].type, 'textbox');
         assert.strictEqual(mockups[0].components[1].position.y, 10);
+        assert.strictEqual(mockups[0].components[1].position.x, 10);
+
+        assert.ok(mockups[0].components[2].id);
+        assert.strictEqual(mockups[0].components[2].type, 'textbox');
         assert.strictEqual(mockups[0].components[2].position.x, 20);
         assert.strictEqual(mockups[0].components[2].position.y, 20);
+
     });
 });
