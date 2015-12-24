@@ -1,4 +1,4 @@
-import { ADD_COMPONENT, MOVE_COMPONENT } from '../actions/mockupActions';
+import { ADD_COMPONENT, MOVE_COMPONENT, SET_SELECTION } from '../actions/mockupActions';
 import generateGuid from '../lib/generateGuid';
 import _ from 'underscore';
 
@@ -18,15 +18,21 @@ export default function mockupsReducer(state = defaultState, action) {
 
             let mockupIndex = _.findIndex(mockups, (m) => m.name == action.mockupName);
             if(mockupIndex == -1) {
-                throw Error(`Could not find mockup. Mockup id: ${action.mockupName}`);
+                throw Error(`Could not find mockup. Mockup name: ${action.mockupName}`);
             }
+
             mockups[mockupIndex] = Object.assign({}, state[mockupIndex]);
             mockups[mockupIndex].components = state[mockupIndex].components.slice(0);
-            mockups[mockupIndex].components.push({
+
+            let newComponent = {
                 id: generateGuid(),
                 type: action.componentType,
                 position: {x: action.componentPosition.x, y: action.componentPosition.y}
-            });
+            };
+
+            mockups[mockupIndex].components.push(newComponent);
+            mockups[mockupIndex].selectedComponent = newComponent.id;
+
             return mockups;
         }
         case MOVE_COMPONENT:
@@ -34,13 +40,25 @@ export default function mockupsReducer(state = defaultState, action) {
             let mockups = state.slice(0);
             let mockup = _.find(mockups, (m) => m.name == action.mockupName);
             if (!mockup) {
-                throw Error(`Could not find mockup. Mockup id: ${action.mockupName}`);
+                throw Error(`Could not find mockup. Mockup name: ${action.mockupName}`);
             }
             mockup = Object.assign({}, mockup); // clone the mockup
             mockup.components = mockup.components.concat([{
                 type: action.componentType,
                 position: {x: action.componentPosition.x, y: action.componentPosition.y}
             }]);
+            return mockups;
+        }
+        case SET_SELECTION:
+        {
+            let mockups = state.slice(0); // mockups is now a copy of the state
+
+            let mockupIndex = _.findIndex(mockups, (m) => m.name == action.mockupName);
+            if(mockupIndex == -1) {
+                throw Error(`Could not find mockup. Mockup name: ${action.mockupName}`);
+            }
+            mockups[mockupIndex] = Object.assign({}, state[mockupIndex]);
+            mockups[mockupIndex].selectedComponent = action.componentId;
             return mockups;
         }
         default:

@@ -1,7 +1,7 @@
 import mockupsReducer from '../src/client/reducers/mockupsReducer';
 import deepFreeze from 'deep-freeze';
 import chai from 'chai';
-import { ADD_COMPONENT, MOVE_COMPONENT } from '../src/client/actions/mockupActions';
+import { ADD_COMPONENT, MOVE_COMPONENT, SET_SELECTION } from '../src/client/actions/mockupActions';
 
 var assert = chai.assert;
 
@@ -53,5 +53,29 @@ describe('mockupsReducer', function () {
         assert.strictEqual(mockups[0].components[2].position.x, 20);
         assert.strictEqual(mockups[0].components[2].position.y, 20);
 
+        // the selected component should be the last added component
+        assert.strictEqual(mockups[0].selectedComponent, mockups[0].components[2].id);
+
     });
+    it('action: SET_SELECTION', function() {
+        let state = [
+            {
+                name: 'default',
+                components: [
+                    {
+                        id: '123',
+                        type: 'texbox',
+                        position: {x: 0, y: 0}
+                    }
+                ]
+            }
+        ];
+        deepFreeze(state);
+        let mockups = mockupsReducer(state, {
+            type: SET_SELECTION,
+            mockupName: 'default',
+            componentId: '123'
+        });
+        assert.strictEqual(mockups[0].selectedComponent, '123');
+    })
 });

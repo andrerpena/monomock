@@ -52,7 +52,7 @@ var Surface = React.createClass({
         return connectDropTarget(
             <div className="surface">
                 { this.props.mockup.components.map((c, i) => {
-                    return <ComponentContainer key={`component-${i}`} position={c.position} type={c.type} props={c.props} />
+                    return <ComponentContainer key={`component-${i}`} position={c.position} type={c.type} props={c.props} selected={this.props.mockup.selectedComponent == c.id } />
                 })}
             </div>
         );

@@ -1,5 +1,6 @@
 export const ADD_COMPONENT = 'ADD_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
+export const SET_SELECTION = 'SET_SELECTION';
 
 export function addComponent(mockupName, componentType, position) {
     return {
@@ -17,4 +18,12 @@ export function moveComponent(mockupName, componentType, position) {
         componentType: componentType,
         componentPosition: position
     };
+}
+
+export function setSelection(mockupName, componentId) {
+    return {
+        type: SET_SELECTION,
+        mockupName: mockupName,
+        componentId: componentId
+    }
 }

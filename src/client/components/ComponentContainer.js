@@ -4,7 +4,6 @@ import componentRegistry from './mockup/componentRegistry';
 
 var ComponentContainer = React.createClass({
 
-    //return <ComponentContainer key={`component-${i}`} position={c.position} type={c.type} props={c.props} />
     propTypes: {
         position: React.PropTypes.shape({
             x: React.PropTypes.number,
@@ -24,22 +23,30 @@ var ComponentContainer = React.createClass({
         if (!componentRegistry[this.props.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
         let componentType = componentRegistry[this.props.type].component;
 
-        return <div style={style} ref="container">
+        return <div style={style} ref="container" className="component-container" onClick={this.handleClick}>
             <div className="component-container-content">
                 { React.createElement(componentType)}
             </div>
-            <div className="component-container-handles">
-                <div className="component-container-handle north" ref="north-handle"></div>
-                <div className="component-container-handle south" ref="south-handle"></div>
-                <div className="component-container-handle north-west" ref="north-west-handle"></div>
-                <div className="component-container-handle north-east" ref="north-east-handle"></div>
-                <div className="component-container-handle south-west" ref="south-west-handle"></div>
-                <div className="component-container-handle south-east" ref="south-east-handle"></div>
-            </div>
+            { this.props.selected ? this.renderHandles() : null }
         </div>;
     },
 
-    updateHandles: function() {
+    handleClick: function() {
+
+    },
+
+    renderHandles: function () {
+        return <div className="component-container-handles">
+            <div className="component-container-handle north" ref="north-handle"></div>
+            <div className="component-container-handle south" ref="south-handle"></div>
+            <div className="component-container-handle north-west" ref="north-west-handle"></div>
+            <div className="component-container-handle north-east" ref="north-east-handle"></div>
+            <div className="component-container-handle south-west" ref="south-west-handle"></div>
+            <div className="component-container-handle south-east" ref="south-east-handle"></div>
+        </div>;
+    },
+
+    updateHandles: function () {
         let componentWidth = this.refs['container'].offsetWidth;
         let componentHeight = this.refs['container'].offsetHeight;
         let handleOffset = 3.5;
@@ -67,7 +74,8 @@ var ComponentContainer = React.createClass({
     },
 
     componentDidMount() {
-        this.updateHandles();
+        if (this.props.selected)
+            this.updateHandles();
     }
 });
 
