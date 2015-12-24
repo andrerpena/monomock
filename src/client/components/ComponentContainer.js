@@ -31,8 +31,10 @@ var ComponentContainer = React.createClass({
             <div className="component-container-handles">
                 <div className="component-container-handle north" ref="north-handle"></div>
                 <div className="component-container-handle south" ref="south-handle"></div>
-                <div className="component-container-handle north-east" ref="north-east-handle"></div>
                 <div className="component-container-handle north-west" ref="north-west-handle"></div>
+                <div className="component-container-handle north-east" ref="north-east-handle"></div>
+                <div className="component-container-handle south-west" ref="south-west-handle"></div>
+                <div className="component-container-handle south-east" ref="south-east-handle"></div>
             </div>
         </div>;
     },
@@ -45,17 +47,23 @@ var ComponentContainer = React.createClass({
         console.log(componentHeight);
         console.log(componentWidth);
 
-        this.refs['north-handle'].style.top = '-3px';
+        this.refs['north-handle'].style.top = `-${handleOffset}px`;
         this.refs['north-handle'].style.left = (componentWidth / 2 - handleOffset) + 'px';
 
         this.refs['south-handle'].style.top = ( componentHeight - handleOffset) + 'px';
         this.refs['south-handle'].style.left = (componentWidth / 2 - handleOffset) + 'px';
 
-        this.refs['north-east-handle'].style.top = '-3px';
+        this.refs['north-west-handle'].style.top = `-${handleOffset}px`;
+        this.refs['north-west-handle'].style.left = `-${handleOffset}px`;
+
+        this.refs['north-east-handle'].style.top = `-${handleOffset}px`;
         this.refs['north-east-handle'].style.left = (componentWidth - handleOffset) + 'px';
 
-        this.refs['north-west-handle'].style.top = '-3px';
-        this.refs['north-west-handle'].style.left = '-3px';
+        this.refs['south-west-handle'].style.top = ( componentHeight - handleOffset) + 'px';
+        this.refs['south-west-handle'].style.left = `-${handleOffset}px`;
+
+        this.refs['south-east-handle'].style.top = ( componentHeight - handleOffset) + 'px';
+        this.refs['south-east-handle'].style.left = (componentWidth - handleOffset) + 'px';
     },
 
     componentDidMount() {
