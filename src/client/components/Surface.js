@@ -50,11 +50,15 @@ var Surface = React.createClass({
         this.props.actions.setSelection(this.props.mockup.name, id);
     },
 
+    handleClick: function() {
+        this.props.actions.setSelection(this.props.mockup.name, null);
+    },
+
     render: function () {
 
         const { connectDropTarget, isOver } = this.props;
         return connectDropTarget(
-            <div className="surface">
+            <div className="surface" onClick={this.handleClick}>
                 { this.props.mockup.components.map((c, i) => {
                     return <ComponentContainer
                         key={`component-${i}`}

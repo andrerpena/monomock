@@ -33,7 +33,8 @@ var ComponentContainer = React.createClass({
         </div>;
     },
 
-    handleClick: function() {
+    handleClick: function(e) {
+        e.stopPropagation();
         this.props.onSelect(this.props.id);
     },
 
