@@ -2,6 +2,28 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import componentRegistry from './mockup/componentRegistry';
 
+import { ItemTypes } from '../Constants';
+import { DragSource } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
+
+const componentSource = {
+    beginDrag(props, monitor, component) {
+        return {
+            id: props.id,
+            type: props.type,
+            props: props.props
+        }
+    }
+};
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
+        isDragging: monitor.isDragging()
+    }
+}
+
 var ComponentContainer = React.createClass({
 
     propTypes: {
@@ -24,16 +46,23 @@ var ComponentContainer = React.createClass({
 
         if (!componentRegistry[this.props.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
         let componentType = componentRegistry[this.props.type].component;
+        const { connectDragSource, isDragging } = this.props;
 
-        return <div style={style} ref="container" className="component-container" onClick={this.handleClick}>
-            <div className="component-container-content">
-                { React.createElement(componentType)}
+        if(isDragging) {
+            return null;
+        }
+
+        return connectDragSource(<div>
+            <div style={style} ref="container" className="component-container" onClick={this.handleClick}>
+                <div className="component-container-content">
+                    { React.createElement(componentType)}
+                </div>
+                { this.props.selected ? this.renderHandles() : null }
             </div>
-            { this.props.selected ? this.renderHandles() : null }
-        </div>;
+        </div>);
     },
 
-    handleClick: function(e) {
+    handleClick: function (e) {
         e.stopPropagation();
         this.props.onSelect(this.props.id);
     },
@@ -54,9 +83,6 @@ var ComponentContainer = React.createClass({
         let componentHeight = this.refs['container'].offsetHeight;
         let handleOffset = 3.5;
 
-        console.log(componentHeight);
-        console.log(componentWidth);
-
         this.refs['north-handle'].style.top = `-${handleOffset}px`;
         this.refs['north-handle'].style.left = (componentWidth / 2 - handleOffset) + 'px';
 
@@ -76,15 +102,22 @@ var ComponentContainer = React.createClass({
         this.refs['south-east-handle'].style.left = (componentWidth - handleOffset) + 'px';
     },
 
-    componentDidMount: function() {
-        if (this.props.selected)
+    componentDidMount: function () {
+        const { selected, isDragging } = this.props;
+
+        this.props.connectDragPreview(getEmptyImage(), {
+            captureDraggingState: true
+        });
+        if (!isDragging && selected)
             this.updateHandles();
+
     },
 
-    componentDidUpdate: function() {
-        if (this.props.selected)
+    componentDidUpdate: function () {
+        const { selected, isDragging } = this.props;
+        if (!isDragging && selected)
             this.updateHandles();
     }
 });
 
-export default ComponentContainer;
+export default DragSource(ItemTypes.EXISTING_COMPONENT, componentSource, collect)(ComponentContainer);

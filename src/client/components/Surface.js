@@ -7,28 +7,33 @@ import ComponentContainer from './ComponentContainer';
 
 const componentTarget = {
     drop: function (props, monitor, component) {
-        // trigger the add component action
-        if (!props.actions || !props.actions.addComponent) {
-            throw Error('Surface is not receiving the component actions');
+
+        switch (monitor.getItemType()) {
+            case ItemTypes.ADD_COMPONENT:
+                // trigger the add component action
+                if (!props.actions || !props.actions.addComponent) {
+                    throw Error('Surface is not receiving the component actions');
+                }
+
+                var clientOffset = monitor.getClientOffset();
+                let offsetX = clientOffset.x;
+                let offsetY = clientOffset.y;
+
+                var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
+                let left = rect.left;
+                let top = rect.top;
+
+                let mockupName = props.mockup.name;
+                let position = {
+                    x: offsetX - left,
+                    y: offsetY - top
+                };
+                let componentType = monitor.getItem().type;
+
+                // trigger the action
+                props.actions.addComponent(mockupName, componentType, position);
         }
 
-        var clientOffset = monitor.getClientOffset();
-        let offsetX = clientOffset.x;
-        let offsetY = clientOffset.y;
-
-        var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
-        let left = rect.left;
-        let top = rect.top;
-
-        let mockupName = props.mockup.name;
-        let position = {
-            x: offsetX - left,
-            y: offsetY - top
-        };
-        let componentType = monitor.getItem().type;
-
-        // trigger the action
-        props.actions.addComponent(mockupName, componentType, position);
     }
 };
 
@@ -50,7 +55,7 @@ var Surface = React.createClass({
         this.props.actions.setSelection(this.props.mockup.name, id);
     },
 
-    handleClick: function() {
+    handleClick: function () {
         this.props.actions.setSelection(this.props.mockup.name, null);
     },
 
@@ -75,4 +80,4 @@ var Surface = React.createClass({
     }
 });
 
-export default DropTarget(ItemTypes.COMPONENT, componentTarget, collect)(Surface);
+export default DropTarget([ItemTypes.ADD_COMPONENT, ItemTypes.EXISTING_COMPONENT], componentTarget, collect)(Surface);

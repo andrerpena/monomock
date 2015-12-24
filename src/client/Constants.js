@@ -1,3 +1,4 @@
 export const ItemTypes = {
-    COMPONENT: 'component'
+    ADD_COMPONENT: 'ADD_COMPONENT',
+    EXISTING_COMPONENT: 'EXISTING_COMPONENT'
 };

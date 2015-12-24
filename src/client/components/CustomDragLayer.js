@@ -27,7 +27,7 @@ var CustomDragLayer = React.createClass({
 
     renderItem(type, item) {
         switch (type) {
-            case ItemTypes.COMPONENT:
+            case ItemTypes.ADD_COMPONENT:
                 if (!item.type) throw Error('\'item.type\' should be truthy');
                 if (!componentRegistry[item.type]) throw Error('\'componentRegistry[item.type]\' should be truthy');
                 let componentType = componentRegistry[item.type].component;

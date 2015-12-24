@@ -64,7 +64,7 @@ var DraggableBox = React.createClass({
     }
 });
 
-export default DragSource(ItemTypes.COMPONENT, boxSource, (connect, monitor) => ({
+export default DragSource(ItemTypes.ADD_COMPONENT, boxSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
