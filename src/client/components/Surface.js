@@ -8,7 +8,7 @@ import ComponentContainer from './ComponentContainer';
 const componentTarget = {
     drop: function (props, monitor, component) {
         // trigger the add component action
-        if(!props.actions || !props.actions.addComponent) {
+        if (!props.actions || !props.actions.addComponent) {
             throw Error('Surface is not receiving the component actions');
         }
 
@@ -22,7 +22,7 @@ const componentTarget = {
 
         let mockupName = props.mockup.name;
         let position = {
-            x : offsetX - left,
+            x: offsetX - left,
             y: offsetY - top
         };
         let componentType = monitor.getItem().type;
@@ -46,13 +46,25 @@ var Surface = React.createClass({
         mockup: React.PropTypes.object.isRequired
     },
 
+    handleComponentSelection: function (id) {
+        this.props.actions.setSelection(this.props.mockup.name, id);
+    },
+
     render: function () {
 
         const { connectDropTarget, isOver } = this.props;
         return connectDropTarget(
             <div className="surface">
                 { this.props.mockup.components.map((c, i) => {
-                    return <ComponentContainer key={`component-${i}`} position={c.position} type={c.type} props={c.props} selected={this.props.mockup.selectedComponent == c.id } />
+                    return <ComponentContainer
+                        key={`component-${i}`}
+                        id={c.id}
+                        type={c.type}
+                        position={c.position}
+                        props={c.props}
+                        selected={this.props.mockup.selectedComponent == c.id }
+                        onSelect={this.handleComponentSelection}
+                    />
                 })}
             </div>
         );

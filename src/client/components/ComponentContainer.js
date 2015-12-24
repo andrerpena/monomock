@@ -9,7 +9,9 @@ var ComponentContainer = React.createClass({
             x: React.PropTypes.number,
             y: React.PropTypes.number
         }).isRequired,
+        id: React.PropTypes.string.isRequired,
         type: React.PropTypes.string.isRequired,
+        onSelect: React.PropTypes.func.isRequired,
         props: React.PropTypes.object
     },
 
@@ -32,7 +34,7 @@ var ComponentContainer = React.createClass({
     },
 
     handleClick: function() {
-
+        this.props.onSelect(this.props.id);
     },
 
     renderHandles: function () {
@@ -73,7 +75,12 @@ var ComponentContainer = React.createClass({
         this.refs['south-east-handle'].style.left = (componentWidth - handleOffset) + 'px';
     },
 
-    componentDidMount() {
+    componentDidMount: function() {
+        if (this.props.selected)
+            this.updateHandles();
+    },
+
+    componentDidUpdate: function() {
         if (this.props.selected)
             this.updateHandles();
     }
