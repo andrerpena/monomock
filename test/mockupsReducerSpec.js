@@ -57,6 +57,32 @@ describe('mockupsReducer', function () {
         assert.strictEqual(mockups[0].selectedComponent, mockups[0].components[2].id);
 
     });
+    it('action: MOVE_COMPONENT', function() {
+        let state = [
+            {
+                name: 'default',
+                components: [
+                    {
+                        id: '123',
+                        type: 'texbox',
+                        position: {x: 0, y: 0}
+                    }
+                ]
+            }
+        ];
+        deepFreeze(state);
+        let mockups = mockupsReducer(state, {
+            type: MOVE_COMPONENT,
+            mockupName: 'default',
+            componentId: '123',
+            componentPosition: {x: 10, y: 20}
+        });
+        assert.strictEqual(mockups[0].components[0].id, '123');
+        assert.strictEqual(mockups[0].components[0].type, 'texbox');
+        assert.strictEqual(mockups[0].components[0].position.x, 10);
+        assert.strictEqual(mockups[0].components[0].position.y, 20);
+        assert.strictEqual(mockups[0].selectedComponent, '123');
+    });
     it('action: SET_SELECTION', function() {
         let state = [
             {
@@ -77,5 +103,6 @@ describe('mockupsReducer', function () {
             componentId: '123'
         });
         assert.strictEqual(mockups[0].selectedComponent, '123');
-    })
+    });
+
 });

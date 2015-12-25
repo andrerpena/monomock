@@ -12,16 +12,17 @@ const componentTarget = {
 
         switch (monitor.getItemType()) {
             case ItemTypes.ADD_COMPONENT:
+            {
                 // trigger the add component action
                 if (!props.actions || !props.actions.addComponent) {
                     throw Error('Surface is not receiving the component actions');
                 }
 
-                var clientOffset = monitor.getClientOffset();
+                let clientOffset = monitor.getClientOffset();
                 let offsetX = clientOffset.x;
                 let offsetY = clientOffset.y;
 
-                var rect = ReactDom.findDOMNode(component).getBoundingClientRect();
+                let rect = ReactDom.findDOMNode(component).getBoundingClientRect();
                 let left = rect.left;
                 let top = rect.top;
 
@@ -34,6 +35,38 @@ const componentTarget = {
 
                 // trigger the action
                 props.actions.addComponent(mockupName, componentType, position);
+                break;
+            }
+
+
+            case ItemTypes.EXISTING_COMPONENT:
+            {
+                // trigger the add component action
+                if (!props.actions || !props.actions.addComponent) {
+                    throw Error('Surface is not receiving the component actions');
+                }
+
+                let clientOffset = monitor.getClientOffset();
+                let offsetX = clientOffset.x;
+                let offsetY = clientOffset.y;
+
+                let rect = ReactDom.findDOMNode(component).getBoundingClientRect();
+                let left = rect.left;
+                let top = rect.top;
+
+                let mockupName = props.mockup.name;
+
+                let componentInnerOffset = monitor.getItem().innerOffset;
+                let position = {
+                    x: offsetX - left - componentInnerOffset.x,
+                    y: offsetY - top - componentInnerOffset.y
+                };
+                let componentId = monitor.getItem().id;
+
+                // trigger the action
+                props.actions.moveComponent(mockupName, componentId, position);
+                break;
+            }
         }
 
     }

@@ -11,11 +11,11 @@ export function addComponent(mockupName, componentType, position) {
     };
 }
 
-export function moveComponent(mockupName, componentType, position) {
+export function moveComponent(mockupName, componentId, position) {
     return {
         type: MOVE_COMPONENT,
         mockupName: mockupName,
-        componentType: componentType,
+        componentId: componentId,
         componentPosition: position
     };
 }
