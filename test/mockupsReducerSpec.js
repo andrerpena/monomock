@@ -1,7 +1,7 @@
 import mockupsReducer from '../src/client/reducers/mockupsReducer';
 import deepFreeze from 'deep-freeze';
 import chai from 'chai';
-import { ADD_COMPONENT, MOVE_COMPONENT, SET_SELECTION } from '../src/client/actions/mockupActions';
+import { ADD_COMPONENT, MOVE_COMPONENT, SET_SELECTION, UPDATE_COMPONENT_SIZE } from '../src/client/actions/mockupActions';
 
 var assert = chai.assert;
 
@@ -81,6 +81,32 @@ describe('mockupsReducer', function () {
         assert.strictEqual(mockups[0].components[0].type, 'texbox');
         assert.strictEqual(mockups[0].components[0].position.x, 10);
         assert.strictEqual(mockups[0].components[0].position.y, 20);
+        assert.strictEqual(mockups[0].selectedComponent, '123');
+    });
+    it('action: UPDATE_COMPONENT_SIZE', function() {
+        let state = [
+            {
+                name: 'default',
+                components: [
+                    {
+                        id: '123',
+                        type: 'texbox',
+                        position: {x: 0, y: 0}
+                    }
+                ]
+            }
+        ];
+        deepFreeze(state);
+        let mockups = mockupsReducer(state, {
+            type: UPDATE_COMPONENT_SIZE,
+            mockupName: 'default',
+            componentId: '123',
+            componentSize: {width: 100, height: 200}
+        });
+        assert.strictEqual(mockups[0].components[0].id, '123');
+        assert.strictEqual(mockups[0].components[0].type, 'texbox');
+        assert.strictEqual(mockups[0].components[0].size.width, 100);
+        assert.strictEqual(mockups[0].components[0].size.height, 200);
         assert.strictEqual(mockups[0].selectedComponent, '123');
     });
     it('action: SET_SELECTION', function() {

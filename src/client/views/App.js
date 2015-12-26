@@ -27,7 +27,14 @@ var App = React.createClass({
             <div className="container-fluid">
                 <Header/>
                 <AppBody
-                    actions={{addComponent: this.props.addComponent, moveComponent: this.props.moveComponent, setSelection: this.props.setSelection}}
+                    actions={
+                        {
+                            addComponent: this.props.addComponent,
+                            moveComponent: this.props.moveComponent,
+                            setSelection: this.props.setSelection,
+                            updateComponentSize: this.props.updateComponentSize
+                        }
+                    }
                     mockups={this.props.mockups}
                 />
             </div>

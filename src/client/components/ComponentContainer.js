@@ -35,6 +35,7 @@ var ComponentContainer = React.createClass({
         id: React.PropTypes.string.isRequired,
         type: React.PropTypes.string.isRequired,
         onSelect: React.PropTypes.func.isRequired,
+        onUpdateComponentSize: React.PropTypes.func.isRequired,
         props: React.PropTypes.object
     },
 
@@ -119,6 +120,14 @@ var ComponentContainer = React.createClass({
         });
         if (!isDragging && selected)
             this.updateHandles();
+
+        let componentRect = this.refs["container"].getBoundingClientRect();
+        this.props.onUpdateComponentSize(this.props.id, {
+            width: componentRect.width,
+            height: componentRect.height
+        });
+
+        console.log(this.refs["container"].getBoundingClientRect());
 
     },
 

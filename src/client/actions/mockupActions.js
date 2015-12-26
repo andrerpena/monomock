@@ -1,6 +1,7 @@
 export const ADD_COMPONENT = 'ADD_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
 export const SET_SELECTION = 'SET_SELECTION';
+export const UPDATE_COMPONENT_SIZE = 'UPDATE_COMPONENT_SIZE';
 
 export function addComponent(mockupName, componentType, position) {
     return {
@@ -25,5 +26,14 @@ export function setSelection(mockupName, componentId) {
         type: SET_SELECTION,
         mockupName: mockupName,
         componentId: componentId
+    }
+}
+
+export function updateComponentSize(mockupName, componentId, size) {
+    return {
+        type: UPDATE_COMPONENT_SIZE,
+        mockupName: mockupName,
+        componentId: componentId,
+        componentSize: size
     }
 }

@@ -4,6 +4,8 @@ import { ItemTypes } from '../Constants';
 import { DropTarget } from 'react-dnd';
 import { ADD_COMPONENT } from '../actions/mockupActions';
 import ComponentContainer from './ComponentContainer';
+import Popover from 'react-bootstrap/lib/Popover'
+
 
 const componentTarget = {
     drop: function (props, monitor, component) {
@@ -90,13 +92,17 @@ var Surface = React.createClass({
         this.props.actions.setSelection(this.props.mockup.name, id);
     },
 
+    handleComponentUpdateSize: function(id, size) {
+        this.props.actions.updateComponentSize(this.props.mockup.name, id, size);
+    },
+
     handleClick: function () {
         this.props.actions.setSelection(this.props.mockup.name, null);
     },
 
     render: function () {
 
-        const { connectDropTarget, isOver } = this.props;
+        const { connectDropTarget, isDragging, isOver } = this.props;
         return connectDropTarget(
             <div className="surface" onClick={this.handleClick}>
                 { this.props.mockup.components.map((c, i) => {
@@ -108,8 +114,16 @@ var Surface = React.createClass({
                         props={c.props}
                         selected={this.props.mockup.selectedComponent == c.id }
                         onSelect={this.handleComponentSelection}
+                        onUpdateComponentSize={this.handleComponentUpdateSize}
                     />
                 })}
+
+                {
+                    !isOver ? <Popover placement="right" positionLeft={0} positionTop={0} arrowOffsetTop={30} animation={false} height={400} >
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </Popover> : null
+                }
+
             </div>
         );
     }
