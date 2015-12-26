@@ -13,6 +13,7 @@ var AppBody = React.createClass({
     },
 
     render: function () {
+        console.log(this.state.windowSize)
         return <div className="page-wrap">
             <div className="row row-no-padding">
                 <div className="col-md-2">
@@ -28,6 +29,30 @@ var AppBody = React.createClass({
                 <CustomDragLayer />
             </div>
         </div>
+    },
+
+    componentWillMount: function() {
+        this.updateDimensions();
+    },
+
+    componentDidMount: function() {
+        window.addEventListener("resize", this.updateDimensions);
+    },
+
+    updateDimensions: function() {
+
+        var w = window,
+            d = document,
+            documentElement = d.documentElement,
+            body = d.getElementsByTagName('body')[0],
+            width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+            height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+
+        this.setState({ windowSize: { width: width, height: height } });
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("resize", this.updateDimensions);
     }
 });
 

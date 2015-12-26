@@ -45,6 +45,7 @@ var ComponentContainer = React.createClass({
         let componentType = componentRegistry[this.props.type].component;
         const { connectDragSource, isDragging } = this.props;
 
+        const transform = `translate(${this.props.position.x}px, ${this.props.position.y}px)`;
         let style = {
             position: 'absolute',
             left: this.props.position.x,

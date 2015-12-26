@@ -71,7 +71,7 @@ var VNavItem = React.createClass({
              <Icon icon={this.state.collapsed ? "plus" : "minus"}/>
         </span> : null;
 
-        let result = <div className="vnav-item-wrapper" style={ isDragging ? { opacity: 0 } : null }>
+        let result = <div className="vnav-item-wrapper">
             <div className="vnav-item" onClick={this.handleOnClick}>
                 {this.props.node.icon ? <Icon icon={this.props.node.icon}/> : null }
                 <span className={vNavIconTextClass}>{this.props.node.display}</span>

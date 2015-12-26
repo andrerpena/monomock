@@ -36,10 +36,10 @@ var CustomDragLayer = React.createClass({
             }
             const x = currentOffset.x + initialOffset.x - sourceOffset.x - innerOffset.x;
             const y = currentOffset.y + initialOffset.y - sourceOffset.y - innerOffset.y;
-            const transform = `translate(${x}px, ${y}px)`;
             return {
-                transform: transform,
-                WebkitTransform: transform,
+                position: 'absolute',
+                left: x,
+                top: y,
                 width: 100
             };
         }
