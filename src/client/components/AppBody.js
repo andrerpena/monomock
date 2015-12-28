@@ -5,6 +5,8 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import CustomDragLayer from './CustomDragLayer';
 
+const headerHeight = 48;
+
 var AppBody = React.createClass({
 
     propTypes: {
@@ -22,13 +24,22 @@ var AppBody = React.createClass({
                 <div className="col-md-10">
                     {
                         this.props.mockups.map((m, i) => {
-                            return <Surface key={`mockup-${i}`} actions={this.props.actions} mockup={m} />;
+                            return <Surface key={`mockup-${i}`} actions={this.props.actions} mockup={m} clientHeight={this.state.windowSize.height - headerHeight} />;
                         })
                     }
                 </div>
                 <CustomDragLayer />
             </div>
         </div>
+    },
+
+    getInitialState: function() {
+        return {
+            windowSize: {
+                width: 800,
+                height: 600
+            }
+        }
     },
 
     componentWillMount: function() {

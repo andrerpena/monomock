@@ -85,14 +85,15 @@ var Surface = React.createClass({
 
     propTypes: {
         actions: React.PropTypes.object.isRequired,
-        mockup: React.PropTypes.object.isRequired
+        mockup: React.PropTypes.object.isRequired,
+        clientHeight: React.PropTypes.number.isRequired
     },
 
     handleComponentSelection: function (id) {
         this.props.actions.setSelection(this.props.mockup.name, id);
     },
 
-    handleComponentUpdateSize: function(id, size) {
+    handleComponentUpdateSize: function (id, size) {
         this.props.actions.updateComponentSize(this.props.mockup.name, id, size);
     },
 
@@ -104,26 +105,21 @@ var Surface = React.createClass({
 
         const { connectDropTarget, isDragging, isOver } = this.props;
         return connectDropTarget(
-            <div className="surface" onClick={this.handleClick}>
-                { this.props.mockup.components.map((c, i) => {
-                    return <ComponentContainer
-                        key={`component-${i}`}
-                        id={c.id}
-                        type={c.type}
-                        position={c.position}
-                        props={c.props}
-                        selected={this.props.mockup.selectedComponent == c.id }
-                        onSelect={this.handleComponentSelection}
-                        onUpdateComponentSize={this.handleComponentUpdateSize}
-                    />
-                })}
-
-                {
-                    !isOver ? <Popover placement="right" positionLeft={0} positionTop={0} arrowOffsetTop={30} animation={false} height={400} >
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </Popover> : null
-                }
-
+            <div className="surface-viewport" style={{height: this.props.clientHeight}}>
+                <div className="surface" onClick={this.handleClick} style={{ width: 2000, height: 2000}} >
+                    { this.props.mockup.components.map((c, i) => {
+                        return <ComponentContainer
+                            key={`component-${i}`}
+                            id={c.id}
+                            type={c.type}
+                            position={c.position}
+                            props={c.props}
+                            selected={this.props.mockup.selectedComponent == c.id }
+                            onSelect={this.handleComponentSelection}
+                            onUpdateComponentSize={this.handleComponentUpdateSize}
+                        />
+                    })}
+                </div>
             </div>
         );
     }

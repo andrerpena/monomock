@@ -6,6 +6,10 @@ import _ from 'underscore';
 var defaultState = [
     {
         name: 'default',
+        size: {
+            width: 1920,
+            height: 1080
+        },
         components: []
     }
 ];
