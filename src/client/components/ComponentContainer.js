@@ -28,10 +28,6 @@ function collect(connect, monitor) {
 var ComponentContainer = React.createClass({
 
     propTypes: {
-        position: React.PropTypes.shape({
-            x: React.PropTypes.number,
-            y: React.PropTypes.number
-        }).isRequired,
         id: React.PropTypes.string.isRequired,
         type: React.PropTypes.string.isRequired,
         onSelect: React.PropTypes.func.isRequired,
@@ -45,11 +41,11 @@ var ComponentContainer = React.createClass({
         let componentType = componentRegistry[this.props.type].component;
         const { connectDragSource, isDragging } = this.props;
 
-        const transform = `translate(${this.props.position.x}px, ${this.props.position.y}px)`;
+        const transform = `translate(${this.props.props.x}px, ${this.props.props.y}px)`;
         let style = {
             position: 'absolute',
-            left: this.props.position.x,
-            top: this.props.position.y,
+            left: this.props.props.x,
+            top: this.props.props.y,
             opacity: isDragging ? 0 : 1
         };
 

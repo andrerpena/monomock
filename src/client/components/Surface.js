@@ -120,6 +120,7 @@ var Surface = React.createClass({
                                 onUpdateComponentSize={this.handleComponentUpdateSize}
                             />
                         })}
+
                     </div>
                 </div>
             </div>

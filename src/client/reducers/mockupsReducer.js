@@ -31,7 +31,10 @@ export default function mockupsReducer(state = defaultState, action) {
             let newComponent = {
                 id: generateGuid(),
                 type: action.componentType,
-                position: {x: action.componentPosition.x, y: action.componentPosition.y}
+                props: {
+                    x: action.componentPosition.x,
+                    y: action.componentPosition.y
+                }
             };
 
             mockups[mockupIndex].components.push(newComponent);
@@ -57,10 +60,8 @@ export default function mockupsReducer(state = defaultState, action) {
                 throw Error(`Could not find component. Mockup name: ${action.mockupName}. Component id: ${action.componentId}`);
             }
             mockups[mockupIndex].components[existingComponentIndex] = Object.assign({}, mockups[mockupIndex].components[existingComponentIndex]);
-            mockups[mockupIndex].components[existingComponentIndex].position = {
-                x: action.componentPosition.x,
-                y: action.componentPosition.y
-            };
+            mockups[mockupIndex].components[existingComponentIndex].props.x = action.componentPosition.x;
+            mockups[mockupIndex].components[existingComponentIndex].props.y = action.componentPosition.y;
 
             return mockups;
         }
