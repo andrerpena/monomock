@@ -95,7 +95,7 @@ export default function mockupsReducer(state = defaultState, action) {
                 throw Error(`Could not find component. Mockup name: ${action.mockupName}. Component id: ${action.componentId}`);
             }
             mockups[mockupIndex].components[existingComponentIndex] = Object.assign({}, mockups[mockupIndex].components[existingComponentIndex]);
-            mockups[mockupIndex].components[existingComponentIndex].size = {
+            mockups[mockupIndex].components[existingComponentIndex].computedSize = {
                 width: action.componentSize.width,
                 height: action.componentSize.height
             };
