@@ -15,7 +15,6 @@ var AppBody = React.createClass({
     },
 
     render: function () {
-        console.log(this.state.windowSize)
         return <div className="page-wrap">
             <div className="row row-no-padding">
                 <div className="col-md-2">

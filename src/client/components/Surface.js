@@ -10,7 +10,7 @@ import Popover from 'react-bootstrap/lib/Popover'
 const componentTarget = {
     drop: function (props, monitor, component) {
 
-        // console.log(monitor.getInitialSourceClientOffset())
+        let viewport = ReactDom.findDOMNode(component.refs.viewport);
 
         switch (monitor.getItemType()) {
             case ItemTypes.ADD_COMPONENT:
@@ -30,8 +30,8 @@ const componentTarget = {
 
                 let mockupName = props.mockup.name;
                 let position = {
-                    x: offsetX - left,
-                    y: offsetY - top
+                    x: offsetX - left + viewport.scrollLeft,
+                    y: offsetY - top + viewport.scrollTop
                 };
                 let componentType = monitor.getItem().type;
 
@@ -60,8 +60,8 @@ const componentTarget = {
 
                 let componentInnerOffset = monitor.getItem().innerOffset;
                 let position = {
-                    x: offsetX - left - componentInnerOffset.x,
-                    y: offsetY - top - componentInnerOffset.y
+                    x: offsetX - left - componentInnerOffset.x + viewport.scrollLeft,
+                    y: offsetY - top - componentInnerOffset.y + viewport.scrollTop
                 };
                 let componentId = monitor.getItem().id;
 
@@ -105,20 +105,22 @@ var Surface = React.createClass({
 
         const { connectDropTarget, isDragging, isOver } = this.props;
         return connectDropTarget(
-            <div className="surface-viewport" style={{height: this.props.clientHeight}}>
-                <div className="surface" onClick={this.handleClick} style={{ width: 2000, height: 2000}} >
-                    { this.props.mockup.components.map((c, i) => {
-                        return <ComponentContainer
-                            key={`component-${i}`}
-                            id={c.id}
-                            type={c.type}
-                            position={c.position}
-                            props={c.props}
-                            selected={this.props.mockup.selectedComponent == c.id }
-                            onSelect={this.handleComponentSelection}
-                            onUpdateComponentSize={this.handleComponentUpdateSize}
-                        />
-                    })}
+            <div>
+                <div className="surface-viewport" style={{height: this.props.clientHeight}} ref="viewport">
+                    <div className="surface" onClick={this.handleClick} style={{ width: 2000, height: 2000}}>
+                        { this.props.mockup.components.map((c, i) => {
+                            return <ComponentContainer
+                                key={`component-${i}`}
+                                id={c.id}
+                                type={c.type}
+                                position={c.position}
+                                props={c.props}
+                                selected={this.props.mockup.selectedComponent == c.id }
+                                onSelect={this.handleComponentSelection}
+                                onUpdateComponentSize={this.handleComponentUpdateSize}
+                            />
+                        })}
+                    </div>
                 </div>
             </div>
         );
