@@ -1,13 +1,13 @@
-@vnav-background-color:           @gray-lighter;
-@vnav-item-background-color:      white;
-@vnav-color:                      @gray;
-@vnav-border-color:               @table-border-color;
+$vnav-background-color:           $gray-lighter;
+$vnav-item-background-color:      white;
+$vnav-color:                      $gray;
+$vnav-border-color:               $table-border-color;
 
 .vnav {
-  background-color: @vnav-background-color;
+  background-color: $vnav-background-color;
   border-width: 1px;
   border-style: solid;
-  border-color: @vnav-border-color;
+  border-color: $vnav-border-color;
 }
 
 .vnav-children-wrapper {
@@ -19,12 +19,12 @@
 }
 
 .search-clearer {
-  background-color: @alert-warning-bg;
-  border-color: @alert-warning-border;
+  background-color: $alert-warning-bg;
+  border-color: $alert-warning-border;
   border-width: 1px;
   border-style: solid;
-  color: @state-warning-text;
-  padding: @padding-base-vertical @padding-large-horizontal;
+  color: $state-warning-text;
+  padding: $padding-base-vertical $padding-large-horizontal;
 }
 
 .search-clearer i.fa {
@@ -47,11 +47,11 @@
 }
 
 .vnav-item {
-  background-color: @vnav-item-background-color;
-  padding: @padding-base-vertical @padding-large-horizontal;
+  background-color: $vnav-item-background-color;
+  padding: $padding-base-vertical $padding-large-horizontal;
   border-width: 1px 0 0 1px;
   border-style: solid;
-  border-color: @vnav-border-color;
+  border-color: $vnav-border-color;
   cursor: pointer;
 
   // no-select

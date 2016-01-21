@@ -1,6 +1,6 @@
-@import '../../../node_modules/bootstrap/less/bootstrap';
-//@import 'bootstrap.sketch.less';
-@import '../../../node_modules/font-awesome/less/font-awesome';
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss';
+@import 'bootstrap.sketch.scss';
 @import './header';
 @import './vnav';
 @import './surface';
