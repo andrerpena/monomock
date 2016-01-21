@@ -7,6 +7,7 @@ import DevTools from './client/DevTools';
 
 // styles
 import styles from './client/less/styles.less';
+import sassTest from './client/less/test.scss';
 
 const store = configureStore();
 
