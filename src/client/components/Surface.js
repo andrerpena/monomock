@@ -5,6 +5,7 @@ import { DropTarget } from 'react-dnd';
 import { ADD_COMPONENT } from '../actions/mockupActions';
 import ComponentContainer from './ComponentContainer';
 import Popover from 'react-bootstrap/lib/Popover'
+import _ from 'underscore';
 
 
 const componentTarget = {
@@ -103,6 +104,25 @@ var Surface = React.createClass({
 
     render: function () {
 
+        // find the selected component
+        let selectedComponent = this.props.mockup.selectedComponent ? _.find(this.props.mockup.components, c => c.id == this.props.mockup.selectedComponent) : null;
+        const popoverOffsetX = 10, popoverOffsetY = 10, popoverWidth=232;
+        let selectedComponentX, selectedComponentY, selectedComponentWidth, selectedComponentHeight;
+
+        let popoverPositionLeft, popoverPositionTop;
+
+        if(selectedComponent && selectedComponent.computedSize) {
+            selectedComponentX = selectedComponent.props.x;
+            selectedComponentY = selectedComponent.props.y;
+            selectedComponentWidth = selectedComponent.computedSize.width;
+            selectedComponentHeight = selectedComponent.computedSize.height;
+
+            popoverPositionLeft = selectedComponentX + selectedComponentWidth/2 - popoverWidth / 2;
+            popoverPositionTop = selectedComponentY + selectedComponentHeight + popoverOffsetY;
+        }
+
+
+
         const { connectDropTarget, isDragging, isOver } = this.props;
         return connectDropTarget(
             <div>
@@ -120,7 +140,14 @@ var Surface = React.createClass({
                                 onUpdateComponentSize={this.handleComponentUpdateSize}
                             />
                         })}
-
+                        {
+                            !isOver && selectedComponent && selectedComponent.computedSize ? <Popover placement="bottom" positionLeft={popoverPositionLeft} positionTop={popoverPositionTop}
+                                               animation={false} >
+                               <div className="popover-content-medium">
+                                   Fuck this
+                               </div>
+                            </Popover> : null
+                        }
                     </div>
                 </div>
             </div>
