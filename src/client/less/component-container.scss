@@ -33,6 +33,14 @@
     cursor: ne-resize;
   }
 
+  .component-container-handle.middle-west {
+    cursor: w-resize;
+  }
+
+  .component-container-handle.middle-east {
+    cursor: w-resize;
+  }
+
   .component-container-handle.south-west {
     cursor: sw-resize;
   }

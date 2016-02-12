@@ -80,6 +80,8 @@ var ComponentContainer = React.createClass({
             <div className="component-container-handle south" ref="south-handle"></div>
             <div className="component-container-handle north-west" ref="north-west-handle"></div>
             <div className="component-container-handle north-east" ref="north-east-handle"></div>
+            <div className="component-container-handle middle-west" ref="middle-west-handle"></div>
+            <div className="component-container-handle middle-east" ref="middle-east-handle"></div>
             <div className="component-container-handle south-west" ref="south-west-handle"></div>
             <div className="component-container-handle south-east" ref="south-east-handle"></div>
         </div>;
@@ -101,6 +103,12 @@ var ComponentContainer = React.createClass({
 
         this.refs['north-east-handle'].style.top = `-${handleOffset}px`;
         this.refs['north-east-handle'].style.left = (componentWidth - handleOffset) + 'px';
+
+        this.refs['middle-west-handle'].style.top = ( componentHeight / 2 - handleOffset) + 'px';
+        this.refs['middle-west-handle'].style.left = `-${handleOffset}px`;
+
+        this.refs['middle-east-handle'].style.top = ( componentHeight / 2 - handleOffset) + 'px';
+        this.refs['middle-east-handle'].style.left = (componentWidth - handleOffset) + 'px';
 
         this.refs['south-west-handle'].style.top = ( componentHeight - handleOffset) + 'px';
         this.refs['south-west-handle'].style.left = `-${handleOffset}px`;
