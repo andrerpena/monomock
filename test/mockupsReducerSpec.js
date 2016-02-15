@@ -19,7 +19,7 @@ describe('mockupsReducer', function () {
                     {
                         id: '123',
                         type: 'texbox',
-                        position: {x: 0, y: 0}
+                        props: {x: 0, y: 0}
                     }
                 ]
             }
@@ -45,13 +45,13 @@ describe('mockupsReducer', function () {
 
         assert.ok(mockups[0].components[1].id);
         assert.strictEqual(mockups[0].components[1].type, 'textbox');
-        assert.strictEqual(mockups[0].components[1].position.y, 10);
-        assert.strictEqual(mockups[0].components[1].position.x, 10);
+        assert.strictEqual(mockups[0].components[1].props.y, 10);
+        assert.strictEqual(mockups[0].components[1].props.x, 10);
 
         assert.ok(mockups[0].components[2].id);
         assert.strictEqual(mockups[0].components[2].type, 'textbox');
-        assert.strictEqual(mockups[0].components[2].position.x, 20);
-        assert.strictEqual(mockups[0].components[2].position.y, 20);
+        assert.strictEqual(mockups[0].components[2].props.x, 20);
+        assert.strictEqual(mockups[0].components[2].props.y, 20);
 
         // the selected component should be the last added component
         assert.strictEqual(mockups[0].selectedComponent, mockups[0].components[2].id);
@@ -64,8 +64,8 @@ describe('mockupsReducer', function () {
                 components: [
                     {
                         id: '123',
-                        type: 'texbox',
-                        position: {x: 0, y: 0}
+                        type: 'textbox',
+                        props: {x: 0, y: 0}
                     }
                 ]
             }
@@ -78,35 +78,9 @@ describe('mockupsReducer', function () {
             componentPosition: {x: 10, y: 20}
         });
         assert.strictEqual(mockups[0].components[0].id, '123');
-        assert.strictEqual(mockups[0].components[0].type, 'texbox');
-        assert.strictEqual(mockups[0].components[0].position.x, 10);
-        assert.strictEqual(mockups[0].components[0].position.y, 20);
-        assert.strictEqual(mockups[0].selectedComponent, '123');
-    });
-    it('action: UPDATE_COMPONENT_SIZE', function() {
-        let state = [
-            {
-                name: 'default',
-                components: [
-                    {
-                        id: '123',
-                        type: 'texbox',
-                        position: {x: 0, y: 0}
-                    }
-                ]
-            }
-        ];
-        deepFreeze(state);
-        let mockups = mockupsReducer(state, {
-            type: UPDATE_COMPONENT_SIZE,
-            mockupName: 'default',
-            componentId: '123',
-            componentSize: {width: 100, height: 200}
-        });
-        assert.strictEqual(mockups[0].components[0].id, '123');
-        assert.strictEqual(mockups[0].components[0].type, 'texbox');
-        assert.strictEqual(mockups[0].components[0].size.width, 100);
-        assert.strictEqual(mockups[0].components[0].size.height, 200);
+        assert.strictEqual(mockups[0].components[0].type, 'textbox');
+        assert.strictEqual(mockups[0].components[0].props.x, 10);
+        assert.strictEqual(mockups[0].components[0].props.y, 20);
         assert.strictEqual(mockups[0].selectedComponent, '123');
     });
     it('action: SET_SELECTION', function() {
